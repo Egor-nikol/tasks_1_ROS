@@ -20,7 +20,9 @@ services:
       - "127.0.0.1:${SIM_PORT:-8081}:8081"
     shm_size: 256m
     mem_limit: 4g
-    cpus: 4
+    # GitHub's standard Linux runner exposes 2 CPUs; allow staff to raise this
+    # locally without making the portable release gate impossible to start.
+    cpus: "${COURSE_CPUS:-2}"
     pids_limit: 512
     cap_drop: [ALL]
     security_opt: [no-new-privileges:true]
