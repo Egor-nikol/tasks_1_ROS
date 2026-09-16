@@ -1,0 +1,30 @@
+name: Formative checks (not final grade)
+on:
+  workflow_dispatch:
+  push:
+    branches: [l01]
+permissions:
+  contents: read
+concurrency:
+  group: public-l01-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  public:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with: {persist-credentials: false}
+      - name: Build and quick public tests
+        env:
+          COURSE_IMAGE_OVERRIDE: ${{ vars.COURSE_IMAGE }}
+        run: |
+          COURSE_IMAGE="$(python3 tools/release_lock.py --expected-image "$COURSE_IMAGE_OVERRIDE")"
+          docker pull "$COURSE_IMAGE"
+          docker run --rm --user "$(id -u):$(id -g)" \
+            --network none --cap-drop ALL --security-opt no-new-privileges \
+            --memory 3g --cpus 2 --pids-limit 256 \
+            -e HOME=/tmp/course-home -v "$PWD:/workspace" \
+            "$COURSE_IMAGE" bash -c '
+              mkdir -p "$HOME"; course build && course test --case all
+            '

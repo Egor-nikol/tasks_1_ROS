@@ -1,0 +1,8 @@
+**/.git
+**/__pycache__
+**/.pytest_cache
+build
+install
+log
+reports
+# Only public infrastructure is copied; hidden_gift remains an editable workspace.

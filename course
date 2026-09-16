@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Host wrapper. Run from Linux/macOS terminal or a WSL2 terminal, not from the IDE.
+set -euo pipefail
+cd "$(dirname "$0")"
+command -v docker >/dev/null || { echo 'Install/start Docker first.' >&2; exit 2; }
+docker info >/dev/null 2>&1 || { echo 'Docker daemon is not reachable.' >&2; exit 2; }
+docker compose version >/dev/null
+cmd="${1:-help}"
+if [[ "$cmd" == doctor ]]; then
+  host="$(docker version --format 'server={{.Server.Version}} arch={{.Server.Arch}}')"
+  docker compose config --quiet
+  docker compose exec -T -e "COURSE_HOST_DOCKER=$host" workspace course doctor
+elif [[ "$cmd" == shell ]]; then
+  docker compose exec workspace bash
+elif [[ "$cmd" == up ]]; then
+  docker compose up -d --wait
+else
+  docker compose exec -T workspace course "$@"
+fi

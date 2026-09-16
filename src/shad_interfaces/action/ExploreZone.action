@@ -1,0 +1,13 @@
+# Axis-aligned search bounds in turtlesim world coordinates.
+float32 min_x
+float32 min_y
+float32 max_x
+float32 max_y
+---
+# A successful search may finish with or without a detected target.
+bool target_found
+float32 target_x
+float32 target_y
+---
+# Total path length covered while executing this goal.
+float32 distance_covered

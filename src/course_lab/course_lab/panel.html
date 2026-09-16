@@ -1,0 +1,19 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hidden Gift 2.0 · Lab 01</title>
+<style>body{margin:0;background:#f1f4f8;color:#18223a;font:16px system-ui}header{padding:22px 4vw;background:#15233f;color:white;display:flex;justify-content:space-between}h1{font-size:24px;margin:0}.layout{display:grid;grid-template-columns:minmax(420px,700px) 320px;gap:28px;padding:30px 4vw}canvas{width:100%;border-radius:14px;background:white;box-shadow:0 8px 40px #11224414}.card{padding:22px;border:1px solid #d9e1ec;border-radius:12px;background:white;margin-bottom:18px}code{font-size:13px;overflow-wrap:anywhere}label{display:block;margin-top:20px}small{line-height:1.6;color:#607087}.tag{color:#51dbc5}dt{color:#64738b}dd{font-variant-numeric:tabular-nums;margin:2px 0 14px;font-weight:650}@media(max-width:900px){.layout{grid-template-columns:1fr}}</style>
+<header><h1>Hidden Gift 2.0</h1><span>ROS 2 · <b class="tag">LAB 01</b></span></header>
+<div class="layout"><canvas id="c" width="880" height="880"></canvas><aside>
+<div class="card"><h2 style="margin-top:0">Наблюдение</h2><dl id="m"></dl><label><input type="checkbox" id="reveal"> Показать подарок (debug)</label><small>Контроллер использует только ROS-датчики. HTTP /state и координаты подарка отсутствуют в официальной проверке.</small></div>
+<div class="card"><b>Терминал IDE</b><p><code>course build<br>course run</code></p><p>В другом терминале:</p><code>course goal --area 1 1 10 10<br>course goal --cancel-after 2</code></div>
+<div class="card"><b>Контракт</b><p>Мир 11 × 11 м. Только движение через cmd_vel. Зелёный датчик видит точку под роботом, не весь прямоугольник.</p><small>Это учебный headless-симулятор, а не окно оригинального turtlesim или Gazebo.</small></div></aside></div>
+<script>
+const c=document.getElementById('c'),ctx=c.getContext('2d'),m=document.getElementById('m');
+const X=x=>40+x*800/11,Y=y=>840-y*800/11;
+function draw(s){ctx.clearRect(0,0,880,880);ctx.strokeStyle='#e2e8f0';ctx.lineWidth=1;
+for(let i=0;i<=11;i++){ctx.beginPath();ctx.moveTo(X(i),40);ctx.lineTo(X(i),840);ctx.moveTo(40,Y(i));ctx.lineTo(840,Y(i));ctx.stroke();ctx.fillStyle='#8a96a8';ctx.font='15px system-ui';ctx.fillText(i,X(i)-5,867);ctx.fillText(i,12,Y(i)+4);}
+if(document.getElementById('reveal').checked&&s.gift){let g=s.gift;ctx.fillStyle='#88e0a099';ctx.fillRect(X(g.x0),Y(g.y1),(g.x1-g.x0)*800/11,(g.y1-g.y0)*800/11);}
+ctx.strokeStyle='#579cdb';ctx.lineWidth=2;ctx.beginPath();s.path.forEach((p,i)=>i?ctx.lineTo(X(p[0]),Y(p[1])):ctx.moveTo(X(p[0]),Y(p[1])));ctx.stroke();
+ctx.save();ctx.translate(X(s.x),Y(s.y));ctx.rotate(-s.theta);ctx.fillStyle=s.green?'#189c60':'#186ca9';ctx.beginPath();ctx.moveTo(18,0);ctx.lineTo(-12,-11);ctx.lineTo(-7,0);ctx.lineTo(-12,11);ctx.closePath();ctx.fill();ctx.restore();
+m.innerHTML=`<dt>namespace</dt><dd>${s.namespace}</dd><dt>pose · m / rad</dt><dd>${s.x.toFixed(2)}, ${s.y.toFixed(2)}, ${s.theta.toFixed(2)}</dd><dt>cmd · m/s / rad/s</dt><dd>${s.v.toFixed(2)} / ${s.w.toFixed(2)}</dd><dt>датчик цвета</dt><dd>${s.green?'GREEN':'background'}</dd><dt>путь / время симуляции</dt><dd>${s.distance.toFixed(2)} м / ${s.sim_time.toFixed(1)} с</dd>`;}
+async function loop(){try{const r=await fetch('/state');if(r.ok)draw(await r.json())}catch(e){}setTimeout(loop,100)}loop();
+</script></html>
