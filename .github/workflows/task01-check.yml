@@ -1,17 +1,27 @@
-name: Formative checks (not final grade)
+name: Task 01 formative checks (not final grade)
+
 on:
   workflow_dispatch:
   push:
     branches: [l01]
+    paths:
+      - task01/**
+      - .github/workflows/task01-check.yml
+
 permissions:
   contents: read
+
 concurrency:
   group: public-l01-${{ github.ref }}
   cancel-in-progress: true
+
 jobs:
   public:
     runs-on: ubuntu-24.04
     timeout-minutes: 12
+    defaults:
+      run:
+        working-directory: task01
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with: {persist-credentials: false}

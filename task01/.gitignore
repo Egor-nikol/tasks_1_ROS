@@ -1,0 +1,10 @@
+build/
+install/
+log/
+__pycache__/
+.pytest_cache/
+*.pyc
+.env.local
+# reports/environment.json IS deliberately committed (no sensitive data).
+reports/public-tests.json
+reports/test-artifacts/
