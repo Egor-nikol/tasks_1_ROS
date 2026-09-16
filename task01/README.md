@@ -1,10 +1,10 @@
 # ROS 2 · занятие 01 — Hidden Gift 2.0
 
-> **Release candidate:** the course-owned interface and simplified L01 scope are ready for final Docker/architecture gates. Use only a release that includes `.env` and `release.lock.json` with an immutable image digest.
+> **Frozen release `2026.1-l01-rc2`:** `.env` and `release.lock.json` bind this task to the validated multi-architecture image manifest. Do not replace it with a mutable tag.
 
 > The simplified scope in `docs/Practice_L01.md` is authoritative; generated HTML/PDF are released from the same source.
 
-**Для студента:** преподаватель выдаёт Task 01 внутри папки `task01/` после проверки образа и добавления `.env` с immutable digest. До этого release-step `docker compose up` не является поддерживаемым способом запуска задания.
+**Для студента:** Task 01 находится внутри папки `task01/`. Выполняйте команды ниже из этой папки; образ уже выбран по immutable digest.
 
 Если в репозитории нет `.env` с immutable digest образа, это ещё не готовый релиз: сообщите преподавателю и не пытайтесь собирать course image во время занятия.
 

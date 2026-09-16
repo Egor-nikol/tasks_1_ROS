@@ -5,11 +5,11 @@
 
 | Задание | Тема | Ветка сдачи | Статус |
 | --- | --- | --- | --- |
-| `task01/` | ROS 2 graph, interfaces and actions · Hidden Gift 2.0 | `l01` | Release candidate |
+| `task01/` | ROS 2 graph, interfaces and actions · Hidden Gift 2.0 | `l01` | Frozen `2026.1-l01-rc2` |
 
 ## Задание 01
 
-После того как преподаватель объявит релиз готовым:
+После получения репозитория:
 
 ```bash
 cd task01
