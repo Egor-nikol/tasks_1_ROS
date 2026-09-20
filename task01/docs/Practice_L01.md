@@ -187,9 +187,25 @@ Extension-cases `inside` и `cancel` отмечаются отдельно и н
 
 В `docs/verification.md` укажите команды `found` и `absent`, их результат и одну известную границу решения. Достаточно 5–10 строк, без отдельного incident report. Подробный разбор дефекта появится в Week 5.
 
-Закоммитьте `src/hidden_gift/`, `reports/environment.json` и `docs/verification.md`, запушьте ветку `l01`. Не коммитьте build/install/log и не присылайте файл с самостоятельно написанной оценкой.
+Все файлы решения должны остаться внутри уже существующей папки `task01/`.
+Закоммитьте `src/hidden_gift/`, `reports/environment.json` и
+`docs/verification.md`, затем отправьте ветку `master`:
 
-Преподаватель заранее связывает student ID с репозиторием и в дедлайн фиксирует **commit SHA**. Ссылка на изменяемую ветку сама по себе не является неизменяемой сдачей. Для подачи через LMS укажите ID, repository и полный SHA; сам токен GitHub нигде не отправляйте.
+```bash
+git switch master
+git add src/hidden_gift reports/environment.json docs/verification.md
+git commit -m "L01: implement and verify Hidden Gift action"
+git push origin master
+```
+
+Не коммитьте build/install/log и не присылайте файл с самостоятельно написанной
+оценкой.
+
+**Commit SHA никуда вписывать и коммитить не нужно.** SHA появляется только после
+создания коммита. В момент дедлайна преподаватель сам сохранит идентификатор
+последнего коммита ветки `master`, который находится на GitHub. От студента
+требуется только разместить код в `task01/`, сделать commit и выполнить
+`git push origin master`. После push убедитесь на GitHub, что изменения появились.
 
 ## 10. Если окружение не запустилось
 

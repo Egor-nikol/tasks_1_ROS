@@ -3,7 +3,7 @@ name: Task 01 formative checks (not final grade)
 on:
   workflow_dispatch:
   push:
-    branches: [l01]
+    branches: [master]
     paths:
       - task01/**
       - .github/workflows/task01-check.yml

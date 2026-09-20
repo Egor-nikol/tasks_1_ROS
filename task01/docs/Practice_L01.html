@@ -239,8 +239,14 @@ course test --case cancel
 <p>В масштабе курса: <strong>90% — среднее лучших 9 из 10 практик; 10% — итоговый ролик до 3 минут</strong>. Отдельной устной защиты и выбора треков нет.</p>
 <h2>9. Сдача — последние 10 минут</h2>
 <p>В <code>docs/verification.md</code> укажите команды <code>found</code> и <code>absent</code>, их результат и одну известную границу решения. Достаточно 5–10 строк, без отдельного incident report. Подробный разбор дефекта появится в Week 5.</p>
-<p>Закоммитьте <code>src/hidden_gift/</code>, <code>reports/environment.json</code> и <code>docs/verification.md</code>, запушьте ветку <code>l01</code>. Не коммитьте build/install/log и не присылайте файл с самостоятельно написанной оценкой.</p>
-<p>Преподаватель заранее связывает student ID с репозиторием и в дедлайн фиксирует <strong>commit SHA</strong>. Ссылка на изменяемую ветку сама по себе не является неизменяемой сдачей. Для подачи через LMS укажите ID, repository и полный SHA; сам токен GitHub нигде не отправляйте.</p>
+<p>Все файлы решения должны остаться внутри уже существующей папки <code>task01/</code>. Закоммитьте <code>src/hidden_gift/</code>, <code>reports/environment.json</code> и <code>docs/verification.md</code>, затем отправьте ветку <code>master</code>:</p>
+<pre><code class="language-bash">git switch master
+git add src/hidden_gift reports/environment.json docs/verification.md
+git commit -m &quot;L01: implement and verify Hidden Gift action&quot;
+git push origin master
+</code></pre>
+<p>Не коммитьте build/install/log и не присылайте файл с самостоятельно написанной оценкой.</p>
+<p><strong>Commit SHA никуда вписывать и коммитить не нужно.</strong> SHA появляется только после создания коммита. В момент дедлайна преподаватель сам сохранит идентификатор последнего коммита ветки <code>master</code>, который находится на GitHub. От студента требуется только разместить код в <code>task01/</code>, сделать commit и выполнить <code>git push origin master</code>. После push убедитесь на GitHub, что изменения появились.</p>
 <h2>10. Если окружение не запустилось</h2>
 <p>На Linux с UID не 1000 задайте <code>LOCAL_UID</code> и <code>LOCAL_GID</code> в <code>.env</code> по <code>id -u</code> / <code>id -g</code>. На Windows выполняйте команды из WSL2. При занятом порте измените <code>IDE_PORT</code> / <code>SIM_PORT</code> в <code>.env</code> и перезапустите Compose.</p>
 <p>Для удалённого Linux используйте SSH tunnels, оставляя сервисы привязанными к localhost:</p>

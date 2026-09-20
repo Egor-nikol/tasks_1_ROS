@@ -1,7 +1,7 @@
 # L01 · verification
 
-Student ID: ...  
-Commit SHA: ...
+> Student ID и Commit SHA сюда вписывать не нужно: преподаватель определяет их
+> автоматически по вашему private-репозиторию и ветке `master`.
 
 ## Обязательные проверки
 

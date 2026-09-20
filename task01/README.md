@@ -52,11 +52,18 @@ course test --case absent
 На хосте:
 
 ```bash
-git switch -c l01  # только один раз; если ветка есть: git switch l01
+git switch master
 git add src/hidden_gift reports/environment.json docs/verification.md
 git commit -m "L01: implement and verify Hidden Gift action"
-git push -u origin l01
-git rev-parse HEAD
+git push origin master
 ```
 
-Ни локальный `score.json`, ни зелёная галочка в изменяемом студентом workflow не являются итоговой оценкой. Преподаватель проверяет точный commit SHA внешним observer.
+**Commit SHA никуда вписывать и коммитить не нужно:** он появляется автоматически
+после `git commit`. От вас требуется только оставить решение внутри `task01/` и
+выполнить `git push origin master` до дедлайна. Преподаватель сам сохранит
+идентификатор отправленного коммита. Убедитесь на GitHub, что ваши изменения
+появились в ветке `master`.
+
+Ни локальный `score.json`, ни зелёная галочка в изменяемом студентом workflow не
+являются итоговой оценкой. Преподаватель проверяет автоматически зафиксированный
+коммит внешним observer.
